@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Holen JSON-ARRAY vom Server - Datenbankabfrage</title>
+</head>
+<body>
+    <h1>Holen JSON-ARRAY vom Server</h1>
+
+
+    <button id="b1">Holen Daten</button>
+
+
+    <p id="pl"></p>
+
+    <script>
+        function tuwas(c) {
+            //Eventhandler für den Button
+
+
+
+            //Daten per AJAX anforern
+            let request = new XMLHttpRequest();
+
+            //load wird ausgelöst, wenn readyState auf 4 steht
+            request.addEventListener("load", function (e) {
+
+                //text in Array umwandeln und als Tabelle anzeigen
+               
+            });
+
+            //Parametersetzen für den Request
+            request.open('GET', 'HoleAlleArtikel.php', true);
+
+            //Aufruf absetzen
+
+            request.send();
+
+        }
+
+        document.getElementById('b1').addEventListener('click', tuwas);
+    </script>
+    <script src="GSA_Bibliothek.js"></script>
+    
+     
+</body>
+</html>

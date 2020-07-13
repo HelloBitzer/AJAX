@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Formulardaten mit AJAX übertragen</title>
+</head>
+<body>
+    <h1>Formulardaten mit AJAX übertragen</h1>
+    <form id="foobar">
+
+        <input type="text" name="item" id="item">
+        <input type="text" name="price" id="price">
+        <input type="checkbox" name="chk" id="chk" value="m" checked> Mitmachen!
+        <textarea name="tx" id="tx">Und etwas Text mit in die Übertragung</textarea>
+
+        <input type="submit" value="versenden" />
+    </form>
+    <p id="pl"></p>
+
+    <script>
+        function tuwas(e)
+        {
+            //Standard-Aktion verhindern
+             e.preventDefault();
+
+            //Input-Felder aus einemFormular in ein FormData-Objekt  sammeln
+
+            //var formElement = document.querySelector("foobar"); //Formularobjekt
+
+            //durchläuft alle input-Elemente der Form und baut die Entries auf
+            //CheckBox und RadioButton werden nur übertragen, wenn sie ausgewählt sind
+            let formdata = new FormData(e.target); // sender des submit-events
+
+            formdata.append('zusatz', 'was tolles');
+
+            //Formdata anzeigen
+            const data = Array.from( formdata.entries() );
+           
+            console.log(  JSON.stringify(data)  );
+
+
+
+
+            //Daten per AJAX versenden
+            let request = new XMLHttpRequest();
+
+
+            //load wird ausgelöst, wenn readyState auf 4 steht  
+            request.addEventListener("load", function (e)
+                                              {
+                                              document.getElementById('pl')
+                                             .innerHTML = e.target.responseText;
+                                             });
+
+
+            //Parametersetzen für den Request
+            request.open('POST', 'PostFormularDaten.php', true);
+
+            //Aufruf absetzen
+
+            request.send(formdata);
+
+         }
+
+
+        document.getElementById('foobar').addEventListener('submit', tuwas);
+    </script>
+
+</body>
+</html>

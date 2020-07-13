@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Beispiel AJAX</title>
+</head>
+<body>
+    <h1>einfaches Beispiel für AJAX</h1>
+
+    <p id="pl">Hier solen Daten vom Server stehen</p>
+
+
+    <button id="b1">AJAX-Request absetzen</button>
+
+    <script>
+        //Script-Engine
+        function nehmeDaten( )   //arguments-Array     
+        {
+            //wird immer aufgerufen wenn sich der readyState ändert
+
+            //warten bis Zustand 4 erreicht
+            if (req.readyState == 4)
+            {
+                //Complete Datenn übernehmen
+                var daten = req.responseText;
+
+                //Daten ins Dom einbauen
+                document.getElementById('pl').innerText = daten;
+
+
+            }
+
+        }
+
+        var req = new XMLHttpRequest();  //GLOBAL
+
+        function sendenRequest()
+        {
+            //per Ajax Daten vom Server anforden
+          
+
+            //Parameter setzen
+            req.open("get", 'ajaxDaten.php', true);
+
+            //Callback , wenn das Ergebnis angekommen ist
+            //0:unset , 1: opened , 2: http header received, 3: loading, 4:complete
+
+            // req.onreadystatechange = nehmeDaten;   //Adresse der Methode : Eventhandler, delegate
+            req.addEventListener('readystatechange', nehmeDaten);
+
+            //Aufruf asynchron absetzen
+            req.send();
+
+        }
+
+
+        document.getElementById('b1').addEventListener('click', sendenRequest);
+
+    </script>
+
+
+
+
+</body>
+</html>

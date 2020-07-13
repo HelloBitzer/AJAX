@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Ajax mit Parameterübergabe vom Client zum Server </title>
+</head>
+<body>
+    <h1>Datenübergabe  Beispiel für AJAX</h1>
+    <h2>Daten per GET an der server senden</h2>
+
+    <fieldset>
+        <legend>Getränk</legend>
+        Kaffee <input id="k" checked name="getränk" type="radio" value="1" /> <br />
+        Tee <input id="t" name="getränk" type="radio" value="2" /> <br />
+        Wasser <input id="w" name="getränk" type="radio" value="3" /> <br />
+    </fieldset>
+     
+    <button id="b1">Preis des ausgewählten Getränkes anforden</button>
+
+    <p id="pl">Hier sollen Daten vom Server stehen</p>
+    <script>
+	
+	    
+        var req = new XMLHttpRequest();
+
+        function setDaten()
+        {
+
+            if ( req.readyState == 4  )//load-event
+            {
+                
+                //Daten ins Dom einbauen
+                document.getElementById('pl').innerText= req.responseText;
+            }
+        }
+
+        function senden()
+        {
+            //url  : preisAusgeben.php?drink=1
+            //GET  Parameter werden an die URL angehängt   url?pname=pvalue&pname=pvalue...
+            let url = "preisAusgeben.php?drink=";
+
+            if (document.getElementById('k').checked)
+            {
+                url += document.getElementById('k').value;
+            }
+            if (document.getElementById('t').checked)
+            {
+                url += document.getElementById('t').value;
+            }
+            if (document.getElementById('w').checked)
+            {
+                url += document.getElementById('w').value;
+            }
+
+            req.open('GET', url, true); 
+
+            //Callback setzen
+            req.onreadystatechange = setDaten;   //Eventhandler 
+
+            // Aufruf absetzen
+            req.send();
+
+        }
+
+
+        document.getElementById('b1').addEventListener('click', senden);
+
+
+
+    </script>
+</body>
+</html>
